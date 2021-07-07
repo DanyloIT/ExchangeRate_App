@@ -13,14 +13,13 @@ This application reads provided url (every 60 seconds), saves all data into in-m
 - To read data go to http://localhost:8080/rates/average or http://localhost:8080/rates/average-in-period?fromDate=07.07.2021&toDate=07.07.2021 in the last one you can specify data period!
 
 ## 👨‍💻Technologies trained
-- Spring - Core, MVC, Web, Security
-- Hibernate Framework
-- MySQL
-- Maven
+- Spring Boot
 - Tomcat
+- Hibernate Framework
+- Maven
 - Json
-- Postman
 - Lombok
+- Cron job
 
 ## 📝Contact me
 - [Telegram](https://t.me/DKrupnyk)
