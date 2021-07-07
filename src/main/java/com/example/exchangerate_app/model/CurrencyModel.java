@@ -9,13 +9,12 @@ import java.time.LocalDate;
 
 @Data
 @Entity
-public class Currency {
+public class CurrencyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String currencyName;
-    private float rateSellToBaseCurrency;
-    private float rateBuyToBaseCurrency;
-    private double rateCross;
+    private String toCurrency;
     private LocalDate date;
+    private float averageRate;
 }

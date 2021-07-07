@@ -1,6 +1,6 @@
 package com.example.exchangerate_app.controller;
 
-import com.example.exchangerate_app.model.dto.CurrencyResponseDto;
+import com.example.exchangerate_app.model.CurrencyModel;
 import com.example.exchangerate_app.service.CurrencyService;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +21,12 @@ public class CurrencyController {
     }
 
     @GetMapping("/average")
-    public List<CurrencyResponseDto> getAverageRate() {
+    public List<CurrencyModel> getAverageRate() {
         return currencyService.getAverageRate();
     }
 
     @GetMapping("/average-in-period")
-    public List<CurrencyResponseDto> getAverageRateOnPeriod(@RequestParam
+    public List<CurrencyModel> getAverageRateOnPeriod(@RequestParam
                                                             @DateTimeFormat(pattern = DATE_PATTERN)
                                                                         LocalDate fromDate,
                                                             @RequestParam

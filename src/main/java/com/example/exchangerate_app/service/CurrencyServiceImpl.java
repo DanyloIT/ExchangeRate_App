@@ -1,6 +1,7 @@
 package com.example.exchangerate_app.service;
 
-import com.example.exchangerate_app.model.dto.CurrencyResponseDto;
+import com.example.exchangerate_app.model.ApiResponseWrapper;
+import com.example.exchangerate_app.model.CurrencyModel;
 import com.example.exchangerate_app.repository.CurrencyRepository;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
@@ -9,24 +10,25 @@ import java.util.List;
 @Component
 public class CurrencyServiceImpl implements CurrencyService {
     private final CurrencyRepository currencyRepository;
+    private final CurrencyMapper currencyMapper;
 
-    public CurrencyServiceImpl(CurrencyRepository currencyRepository) {
+    public CurrencyServiceImpl(CurrencyRepository currencyRepository, CurrencyMapper mapper) {
         this.currencyRepository = currencyRepository;
+        this.currencyMapper = mapper;
     }
 
     @Override
-    public List<CurrencyResponseDto> getAverageRate() {
-        CurrencyResponseDto USD = new CurrencyResponseDto();
-        USD.setCurrencyName("USD");
-        USD.setRateCross(27.65);
-        CurrencyResponseDto EUR = new CurrencyResponseDto();
-        EUR.setCurrencyName("EUR");
-        EUR.setRateCross(33.65);
-        return List.of(USD, EUR);
+    public List<CurrencyModel> getAverageRate() {
+        return currencyRepository.findAll();
     }
 
     @Override
-    public List<CurrencyResponseDto> getAverageRateOnPeriod(LocalDate fromDate, LocalDate toDate) {
-        return currencyRepository.findCurrencyByDateBetween(fromDate, toDate);
+    public List<CurrencyModel> getAverageRateOnPeriod(LocalDate fromDate, LocalDate toDate) {
+        return currencyRepository.findAll();
+    }
+
+    public CurrencyModel save(ApiResponseWrapper apiResponseWrapper) {
+        return currencyRepository.save(currencyMapper.mapToModel(apiResponseWrapper));
     }
 }
+

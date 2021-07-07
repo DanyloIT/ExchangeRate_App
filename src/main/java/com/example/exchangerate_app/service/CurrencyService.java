@@ -1,11 +1,14 @@
 package com.example.exchangerate_app.service;
 
-import com.example.exchangerate_app.model.dto.CurrencyResponseDto;
+import com.example.exchangerate_app.model.ApiResponseWrapper;
+import com.example.exchangerate_app.model.CurrencyModel;
 import java.time.LocalDate;
 import java.util.List;
 
 public interface CurrencyService {
-    List<CurrencyResponseDto> getAverageRate();
+    List<CurrencyModel> getAverageRate();
 
-    List<CurrencyResponseDto> getAverageRateOnPeriod(LocalDate fromDate, LocalDate toDate);
+    List<CurrencyModel> getAverageRateOnPeriod(LocalDate fromDate, LocalDate toDate);
+
+    CurrencyModel save(ApiResponseWrapper apiResponseWrapper);
 }
