@@ -16,7 +16,6 @@ public class ApiFetcherService {
 
     @Scheduled(cron = "*/60 * * * * *")
     public void fetchAllDataFromApi() {
-        System.out.println("fetch method started");
         String monoUrl = "https://api.monobank.ua/bank/currency";
         ApiResponseWrapper[] apiResponseWrappersMono = httpClient.get(monoUrl,
                                                             ApiResponseWrapper[].class);
