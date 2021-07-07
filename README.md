@@ -1,4 +1,4 @@
-# ⚽Exchange Rate App
+# 💱Exchange Rate App
 
 Hello! My name is Danylo Krupnyk and I am Java Developer! 
 
