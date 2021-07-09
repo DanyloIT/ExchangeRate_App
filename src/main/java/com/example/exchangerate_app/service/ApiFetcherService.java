@@ -16,7 +16,7 @@ public class ApiFetcherService {
         this.currencyService = currencyService;
     }
 
-    @Scheduled(cron = "*/20 * * * * *")
+    @Scheduled(cron = "*/60 * * * * *")
     public void fetchFromAllApis() {
         System.out.println("Data fetched!");
         fetchAllDataFromMonoApi();
