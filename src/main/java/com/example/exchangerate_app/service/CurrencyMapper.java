@@ -1,6 +1,8 @@
 package com.example.exchangerate_app.service;
 
-import com.example.exchangerate_app.model.ApiResponseWrapper;
+import com.example.exchangerate_app.model.ApiResponseWrapperMinFin;
+import com.example.exchangerate_app.model.ApiResponseWrapperMono;
+import com.example.exchangerate_app.model.ApiResponseWrapperPrivat;
 import com.example.exchangerate_app.model.CurrencyModel;
 import org.springframework.stereotype.Component;
 import java.time.LocalDate;
@@ -25,15 +27,39 @@ public class CurrencyMapper {
         return currencies.get(code);
     }
 
-    public CurrencyModel mapToModel(ApiResponseWrapper apiResponseWrapper) {
+    public CurrencyModel mapFromMonoToModel(ApiResponseWrapperMono apiResponseWrapperMono) {
         CurrencyModel currencyModel = new CurrencyModel();
         currencyModel.setCurrencyName
-                (getInstance(apiResponseWrapper.getCurrencyCodeA()).getCurrencyCode());
+                (getInstance(apiResponseWrapperMono.getCurrencyCodeA()).getCurrencyCode());
         currencyModel.setToCurrency
-                (getInstance(apiResponseWrapper.getCurrencyCodeB()).getCurrencyCode());
-        currencyModel.setDate(LocalDate.now());
+                (getInstance(apiResponseWrapperMono.getCurrencyCodeB()).getCurrencyCode());
+        currencyModel.setDate(LocalDate.now().toString());
+        if (apiResponseWrapperMono.getRateCross() != 0) {
+            currencyModel.setAverageRate(apiResponseWrapperMono.getRateCross());
+        } else {
+            currencyModel.setAverageRate
+                    ((apiResponseWrapperMono.getRateBuy() + apiResponseWrapperMono.getRateSell()) / 2);
+        }
+        return currencyModel;
+    }
+
+    public CurrencyModel mapFromPrivatToModel(ApiResponseWrapperPrivat apiResponseWrapperPrivat) {
+        CurrencyModel currencyModel = new CurrencyModel();
+        currencyModel.setCurrencyName(apiResponseWrapperPrivat.getCcy());
+        currencyModel.setToCurrency(apiResponseWrapperPrivat.getBase_ccy());
+        currencyModel.setDate(LocalDate.now().toString());
         currencyModel.setAverageRate
-                ((apiResponseWrapper.getRateBuy() + apiResponseWrapper.getRateSell()) / 2);
+                ((apiResponseWrapperPrivat.getBuy() + apiResponseWrapperPrivat.getSale()) / 2);
+        return currencyModel;
+    }
+
+    public CurrencyModel mapFromMinFinToModel(ApiResponseWrapperMinFin apiResponseWrapperMinFin) {
+        CurrencyModel currencyModel = new CurrencyModel();
+        currencyModel.setCurrencyName(apiResponseWrapperMinFin.getCurrency().toUpperCase());
+        currencyModel.setToCurrency("UAH");
+        currencyModel.setDate(LocalDate.now().toString());
+        currencyModel.setAverageRate
+                ((apiResponseWrapperMinFin.getAsk() + apiResponseWrapperMinFin.getBid()) / 2);
         return currencyModel;
     }
 }
